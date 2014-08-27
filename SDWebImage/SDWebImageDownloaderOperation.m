@@ -104,7 +104,11 @@
             CFRunLoopRunInMode(kCFRunLoopDefaultMode, 10, false);
         }
         else {
-            CFRunLoopRun();
+            @try {
+                CFRunLoopRun();
+            } @catch (NSException *exception) {
+                // Exception thrown due to trying to execute on background thread
+            }
         }
 
         if (!self.isFinished) {
